@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dog photo gallery</title>
+
+    <style>
+      body {
+        font-size: 20px;
+        border: 1px solid #ccc;
+        background-color: #ddd;
+        width: 20%;
+        text-align: center;
+        margin: 0 50px;
+        padding: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Dog photo gallery</h1>
+    <button id="button">Add a random dog</button>
+    <ul id="container"></ul>
+
+    <script>
+      const buttonEl = document.querySelector("#button");
+
+      function photoFetch() {
+        fetch("https://dog.ceo/api/breeds/image/random")
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            const ulEl = document.querySelector("#container");
+            const liEl = document.createElement("li");
+            ulEl.appendChild(liEl);
+            const imgEl = document.createElement("img");
+            liEl.appendChild(imgEl);
+            imgEl.src = data.message;
+          })
+          .catch((err) => console.log(err));
+      }
+
+      buttonEl.addEventListener("click", photoFetch);
+    </script>
+  </body>
+</html>
